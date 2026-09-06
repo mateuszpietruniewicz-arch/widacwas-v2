@@ -329,7 +329,7 @@
     const tabs = [...document.querySelectorAll(".services .tab")];
     const panels = [...document.querySelectorAll(".services .panel")];
     if (!wrap || tabs.length < 2) return;
-    const HOLD = 5200;                          // ile widać jedną usługę
+    const HOLD = 3400;                          // ile widać jedną usługę
     let i = 0, anim = null, paused = false;
     // sprawdzamy widoczność wprost z geometrii — nie czekamy na pierwszy callback obserwatora
     const visible = () => { const r = wrap.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
