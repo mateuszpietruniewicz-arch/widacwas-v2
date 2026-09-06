@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<!--
+  WidaćWas — rebuild v2. Mechanika przejść i efektów odtworzona 1:1 z szablonu
+  Framer "Agero" (agero.framer.website) na podstawie inspekcji DOM/bundle'a:
+  wartości sprężyn, easingi, opóźnienia, progi IntersectionObservera, transformacje
+  scrollowe. Kod własny (HTML/CSS/JS, zero zależności), treść i zdjęcia WidaćWas.
+  Miejsca oznaczone [PRZYKŁADOWE] to dane pokazowe do podmiany.
+-->
+<html lang="pl" class="no-js">
+<head>
+  <meta charset="utf-8" />
+  <title>WidaćWas — strony i social media dla lokalnych firm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="assets/favicon-32x32.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 20 20"><path d="M4 10h11M10.5 5.5 15 10l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-flower" viewBox="0 0 24 24"><path d="M12 2c1.7 0 3 2.2 3 4.5 0 .5-.1 1-.2 1.4.4-.3.9-.5 1.4-.7 2.2-.7 4.6.2 5.1 1.8.5 1.6-1 3.7-3.2 4.4-.5.2-1 .2-1.5.2.4.3.8.7 1.1 1.1 1.4 1.9 1.4 4.5 0 5.5-1.4 1-3.8.2-5.2-1.7-.3-.4-.5-.8-.6-1.3-.1.5-.4.9-.6 1.3-1.4 1.9-3.8 2.7-5.2 1.7-1.4-1-1.4-3.6 0-5.5.3-.4.7-.8 1.1-1.1-.5 0-1 0-1.5-.2C3.5 12.7 2 10.6 2.6 9c.5-1.6 2.9-2.5 5.1-1.8.5.2 1 .4 1.4.7-.1-.4-.2-.9-.2-1.4C9 4.2 10.3 2 12 2z" fill="currentColor"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5 9.5 17 19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 16 16"><path d="M8 2v12M2 8h12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-prev" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-fb" viewBox="0 0 24 24"><path d="M14 8h3V5h-3c-2.2 0-4 1.8-4 4v2H7v3h3v7h3v-7h3l1-3h-4V9c0-.6.4-1 1-1z" fill="currentColor"/></symbol>
+    <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="i-tool" viewBox="0 0 24 24"><path d="M14.5 6.5a4 4 0 0 0 5 5L9 22l-3-3L16.5 8.5a4 4 0 0 1-2-2zM19 3l2 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+  <!-- Header: spring 200/60, delay .6 -->
+  <div class="header-row" data-appear="header delay:.6 load">
+    <a class="logo" href="#top" aria-label="WidaćWas — strona główna">
+      <img src="assets/logo-icon.png" alt="" width="40" height="40" />
+      <b>widacwas<i>.pl</i></b>
+    </a>
+    <nav class="main-nav" aria-label="Główna">
+      <a href="#realizacje">Realizacje<i class="u"></i></a>
+      <a href="#uslugi">Usługi<i class="u"></i></a>
+      <a href="#zespol">Zespół<i class="u"></i></a>
+      <a href="#cennik">Cennik<i class="u"></i></a>
+    </nav>
+    <a class="btn" href="#kontakt"><span>Kontakt</span></a>
+  </div>
+  <div class="spacer"></div>
+</header>
+
+<main id="top">
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero-panel">
+    <!-- Zdjęcie jako tło hero: wejście scale 1.14 → 1 (tween 1.2 s, ease [.09,.89,.36,.96]),
+         pod spodem powolny zoom sterowany scrollem. Przyciemnienie + ziarno pod biały tekst. -->
+    <div class="hero-bg" data-appear="heroimg delay:.2 load">
+      <img src="images/hero.jpg" alt="Właścicielka lokalu przed witryną — klient najpierw sprawdza firmę w telefonie" data-scale-parallax="1,1.12" />
+    </div>
+    <div class="hero-shade"></div>
+    <div class="noise"></div>
+
+    <div class="hero-content">
+      <!-- x 20→0, tween .4, delay 1.4 -->
+      <p class="hero-trust" data-appear="founders delay:1.4 load">Zaufali nam właściciele lokalnych firm.</p>
+
+      <!-- Nagłówek: efekt per-litera (blur 10px, y 10, stagger .05 s), wers po wersie -->
+      <div class="hero-heading">
+        <div class="row"><h1 class="t-h1" data-text-fx=".9" data-load data-spring>Strony, social media</h1></div>
+        <div class="row"><h1 class="t-h1 accent" data-text-fx="1.4" data-load data-spring>i widoczność w sieci</h1></div>
+        <div class="row"><h1 class="t-h1" data-text-fx="1.9" data-load data-spring>dla lokalnych firm.</h1></div>
+      </div>
+
+      <!-- Akapit: y 12→0 spring 52/16, delay 1.4; CTA: to samo, delay 1.6 -->
+      <p class="hero-sub" data-appear="soft delay:1.4 load">Strona, profile na Facebooku i Instagramie, wizytówka Google i reklamy lokalne. Klient sprawdza Was w telefonie, zanim wejdzie przez drzwi. Robimy tak, żeby kończyło się to telefonem do Was, nie do konkurencji piętro niżej.</p>
+      <a class="btn light hero-cta" href="#cennik" data-appear="soft delay:1.6 load"><span>Zobacz cennik</span><svg class="arrow"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- Pasek klientów: Ticker speed 50, gap 80, fade 12.5% -->
+<div class="logos-band">
+  <div class="ticker fade" data-speed="50" aria-label="Nasi klienci">
+    <ul>
+      <li><span class="client"><svg><use href="#i-flower"/></svg>Stage Dive Media</span></li>
+      <li><span class="client"><svg><use href="#i-pin"/></svg>Klucz Nieruchomości</span></li>
+      <li><span class="client"><svg><use href="#i-tool"/></svg>Motus Fizjoterapia</span></li>
+      <li><span class="client"><svg><use href="#i-globe"/></svg>Ziarno</span></li>
+      <li><span class="client"><svg><use href="#i-flower"/></svg>Ognisko</span></li>
+      <li><span class="client"><svg><use href="#i-chat"/></svg>Wolska Beauty Atelier</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ================= ABOUT (reveal słowo po słowie) ================= -->
+<section class="section about" id="o-nas">
+  <div class="container">
+    <div class="paren" data-appear="up60"><span>(</span><span class="wordmark">widacwas.pl</span><span>)</span></div>
+    <p class="reveal-text">Zanim ktoś do Was zadzwoni, prawie zawsze najpierw sprawdza Was w telefonie: stronę, opinie, profil na Facebooku. Robimy tak, żeby to sprawdzenie wypadło dobrze — bez korpo-gadki, z jawną ceną i konkretnym terminem.</p>
+    <div class="tags" data-appear="up40 delay:.2">
+      <span class="btn tag"><svg><use href="#i-globe"/></svg>Strona</span>
+      <span class="btn tag"><svg><use href="#i-chat"/></svg>Social media</span>
+      <span class="btn tag"><svg><use href="#i-pin"/></svg>Google Business</span>
+      <span class="btn tag"><svg><use href="#i-tool"/></svg>Wsparcie</span>
+      <span class="btn tag"><svg><use href="#i-flower"/></svg>Grafiki</span>
+      <span class="btn tag"><svg><use href="#i-arrow"/></svg>Reklamy lokalne</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OPINIE + STATYSTYKI ================= -->
+<section class="section testimonials" id="opinie">
+  <div class="container">
+    <div class="sec-top">
+      <p class="eyebrow" data-appear="up160">(Dlaczego klienci wybierają WidaćWas)</p>
+      <div class="giant-wrap" data-appear="up60"><div class="giant-mask"><h2 class="t-giant">Opinie</h2></div></div>
+    </div>
+    <div class="grid">
+      <!-- karta statystyk: obraz w tle skaluje się 1.25 → 1 podczas scrollu -->
+      <aside class="stats-card" data-appear="left60">
+        <div class="media" data-scale-parallax="1.25,1"><img src="images/ognisko-orange.jpg" alt="" /></div>
+        <div class="shade"></div>
+        <div class="stat"><b data-count="32.5" data-suffix="%">0%</b><span>firm w Polsce nie ma własnej strony (GUS 2025)</span></div>
+        <div class="stat"><b data-count="47.8" data-suffix="%">0%</b><span>firm ma aktywny profil w social media</span></div>
+        <div class="stat"><b data-count="7" data-suffix=" dni">0</b><span>roboczych od rozmowy do działającej strony</span></div>
+      </aside>
+
+      <!-- slider 01 / 03 — [PRZYKŁADOWE] cytaty podpisane rolą, do podmiany na prawdziwe -->
+      <div class="slider" data-appear="up40 delay:.15">
+        <div class="track">
+          <article class="slide">
+            <img src="images/ziarno.jpg" alt="" /><div class="dark"></div><div class="blur"></div>
+            <div class="body">
+              <div class="idx">01<span>&nbsp;/ 03</span></div>
+              <blockquote><p>„Strona ruszyła dokładnie w tydzień, tak jak było umówione. Zero niespodzianek na fakturze.”</p>
+                <div class="author"><b>Właścicielka gabinetu fizjoterapii</b><span>[przykładowa opinia]</span></div></blockquote>
+            </div>
+          </article>
+          <article class="slide">
+            <img src="images/wolska.jpg" alt="" /><div class="dark"></div><div class="blur"></div>
+            <div class="body">
+              <div class="idx">02<span>&nbsp;/ 03</span></div>
+              <blockquote><p>„W końcu ktoś, kto tłumaczy cennik po ludzku, a nie robi tajemnicy z każdej złotówki.”</p>
+                <div class="author"><b>Właściciel kawiarni</b><span>[przykładowa opinia]</span></div></blockquote>
+            </div>
+          </article>
+          <article class="slide">
+            <img src="images/stagedive.jpg" alt="" /><div class="dark"></div><div class="blur"></div>
+            <div class="body">
+              <div class="idx">03<span>&nbsp;/ 03</span></div>
+              <blockquote><p>„Social media wreszcie ogarnięte. Publikacje idą same, a ja mam czas na kuchnię, nie na Instagrama.”</p>
+                <div class="author"><b>Szef kuchni, bistro z grillem</b><span>[przykładowa opinia]</span></div></blockquote>
+            </div>
+          </article>
+        </div>
+        <div class="ctrls">
+          <span class="cur" hidden>01</span>
+          <button class="prev" aria-label="Poprzednia opinia"><svg><use href="#i-prev"/></svg></button>
+          <button class="next" aria-label="Następna opinia"><svg><use href="#i-next"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REALIZACJE — sticky stack ================= -->
+<section class="section works" id="realizacje">
+  <div class="container">
+    <div class="sec-top">
+      <p class="eyebrow" data-appear="up160">(Realizacje)</p>
+      <div class="giant-wrap" data-appear="up60"><div class="giant-mask"><h2 class="t-giant">Ostatnie wdrożenia</h2></div></div>
+    </div>
+    <div class="stack">
+      <!-- każda karta: position sticky (top 50/80/100…), a gdy nadjeżdża kolejna:
+           zewnętrzny wrapper → scale .3, rotate 10°, opacity 0; wewnętrzny → scale .7/.6, rotate ±10°, opacity ~0 -->
+      <div class="work-pin p1"><div class="work-card-in"><article class="work-card">
+        <img class="bg" src="images/stagedive.jpg" alt="" /><div class="blur-bg"></div><div class="noise"></div>
+        <div class="wrap">
+          <div class="left">
+            <p class="desc">WidaćWas działa pod skrzydłami Stage Dive Media — marki z ponad 5-letnim doświadczeniem w promocji. Poniżej wybrane wdrożenia.</p>
+            <div class="brand"><div class="num">01<span>&nbsp;/ 06</span></div><h3>Stage Dive Media</h3></div>
+          </div>
+          <div class="right">
+            <a class="shot" href="https://stagedive.pl" target="_blank" rel="noopener">
+              <span class="bar" aria-hidden="true"><i></i><i></i><i></i><em>stagedive.pl</em></span>
+              <figure><img src="images/stagedive.jpg" alt="Strona Stage Dive Media" loading="lazy" /></figure>
+            </a>
+            <div class="meta">
+              <div class="top"><div class="grp"><span class="k">Branża</span><span class="v big">Muzyka</span></div><div class="grp"><span class="k">Zakres</span><span class="v">Strona + booking</span></div></div>
+              <div class="grp"><span class="k">Elementy</span><span class="v">Oferta</span><span class="v">Proces współpracy</span><span class="v">FAQ</span><span class="v">Formularz</span></div>
+            </div>
+          </div>
+        </div>
+      </article></div></div>
+
+      <div class="work-pin p2"><div class="work-card-in"><article class="work-card">
+        <img class="bg" src="images/klucz-nieruchomosci.jpg" alt="" /><div class="blur-bg"></div><div class="noise"></div>
+        <div class="wrap">
+          <div class="left">
+            <p class="desc">Biuro pośrednictwa nieruchomości w Poznaniu: oferty, doradztwo kredytowe i wyceny w jednym miejscu.</p>
+            <div class="brand"><div class="num">02<span>&nbsp;/ 06</span></div><h3>Klucz Nieruchomości</h3></div>
+          </div>
+          <div class="right">
+            <a class="shot" href="https://klucznieruchomosci.netlify.app/" target="_blank" rel="noopener">
+              <span class="bar" aria-hidden="true"><i></i><i></i><i></i><em>klucznieruchomosci.netlify.app</em></span>
+              <figure><img src="images/klucz-nieruchomosci.jpg" alt="Strona Klucz Nieruchomości" loading="lazy" /></figure>
+            </a>
+            <div class="meta">
+              <div class="top"><div class="grp"><span class="k">Miasto</span><span class="v big">Poznań</span></div><div class="grp"><span class="k">Zakres</span><span class="v">Strona wizytówka</span></div></div>
+              <div class="grp"><span class="k">Elementy</span><span class="v">Oferty</span><span class="v">Doradztwo kredytowe</span><span class="v">Wyceny</span><span class="v">Kontakt</span></div>
+            </div>
+          </div>
+        </div>
+      </article></div></div>
+
+      <div class="work-pin p3"><div class="work-card-in"><article class="work-card">
+        <img class="bg" src="images/motus-fizjoterapia.jpg" alt="" /><div class="blur-bg"></div><div class="noise"></div>
+        <div class="wrap">
+          <div class="left">
+            <p class="desc">Gabinet fizjoterapii i rehabilitacji w Raciborzu, z prostym umawianiem wizyt online.</p>
+            <div class="brand"><div class="num">03<span>&nbsp;/ 06</span></div><h3>Motus Fizjoterapia</h3></div>
+          </div>
+          <div class="right">
+            <a class="shot" href="https://motusfizjo.netlify.app/" target="_blank" rel="noopener">
+              <span class="bar" aria-hidden="true"><i></i><i></i><i></i><em>motusfizjo.netlify.app</em></span>
+              <figure><img src="images/motus-fizjoterapia.jpg" alt="Strona Motus Fizjoterapia" loading="lazy" /></figure>
+            </a>
+            <div class="meta">
+              <div class="top"><div class="grp"><span class="k">Miasto</span><span class="v big">Racibórz</span></div><div class="grp"><span class="k">Zakres</span><span class="v">Strona + rezerwacje</span></div></div>
+              <div class="grp"><span class="k">Elementy</span><span class="v">Umawianie wizyt</span><span class="v">Cennik zabiegów</span><span class="v">Mapa</span><span class="v">Godziny</span></div>
+            </div>
+          </div>
+        </div>
+      </article></div></div>
+
+      <div class="work-pin p1" style="--pin:120px"><div class="work-card-in"><article class="work-card">
+        <img class="bg" src="images/ziarno.jpg" alt="" /><div class="blur-bg"></div><div class="noise"></div>
+        <div class="wrap">
+          <div class="left">
+            <p class="desc">Kawiarnia i palarnia kawy w Łodzi. Strona buduje ten sam nastrój, co wnętrze lokalu.</p>
+            <div class="brand"><div class="num">04<span>&nbsp;/ 06</span></div><h3>Ziarno</h3></div>
+          </div>
+          <div class="right">
+            <a class="shot" href="https://ziarno.netlify.app/" target="_blank" rel="noopener">
+              <span class="bar" aria-hidden="true"><i></i><i></i><i></i><em>ziarno.netlify.app</em></span>
+              <figure><img src="images/ziarno.jpg" alt="Strona kawiarni Ziarno" loading="lazy" /></figure>
+            </a>
+            <div class="meta">
+              <div class="top"><div class="grp"><span class="k">Miasto</span><span class="v big">Łódź</span></div><div class="grp"><span class="k">Zakres</span><span class="v">Strona + social</span></div></div>
+              <div class="grp"><span class="k">Elementy</span><span class="v">Menu</span><span class="v">Galeria</span><span class="v">Instagram</span><span class="v">Mapa</span></div>
+            </div>
+          </div>
+        </div>
+      </article></div></div>
+
+      <div class="work-pin p2" style="--pin:140px"><div class="work-card-in"><article class="work-card">
+        <img class="bg" src="images/ognisko.jpg" alt="" /><div class="blur-bg"></div><div class="noise"></div>
+        <div class="wrap">
+          <div class="left">
+            <p class="desc">Bistro i grill na żywym ogniu w Gdańsku. Mocna wizualnie strona z galerią wnętrza.</p>
+            <div class="brand"><div class="num">05<span>&nbsp;/ 06</span></div><h3>Ognisko</h3></div>
+          </div>
+          <div class="right">
+            <a class="shot" href="https://restauracjaognisko.netlify.app/" target="_blank" rel="noopener">
+              <span class="bar" aria-hidden="true"><i></i><i></i><i></i><em>restauracjaognisko.netlify.app</em></span>
+              <figure><img src="images/ognisko.jpg" alt="Strona restauracji Ognisko" loading="lazy" /></figure>
+            </a>
+            <div class="meta">
+              <div class="top"><div class="grp"><span class="k">Miasto</span><span class="v big">Gdańsk</span></div><div class="grp"><span class="k">Zakres</span><span class="v">Strona wizytówka</span></div></div>
+              <div class="grp"><span class="k">Elementy</span><span class="v">Galeria zdjęć</span><span class="v">Menu</span><span class="v">Rezerwacje</span><span class="v">Godziny</span></div>
+            </div>
+          </div>
+        </div>
+      </article></div></div>
+
+      <div class="work-pin p3" style="--pin:160px"><div class="work-card-in"><article class="work-card">
+        <img class="bg" src="images/wolska.jpg" alt="" /><div class="blur-bg"></div><div class="noise"></div>
+        <div class="wrap">
+          <div class="left">
+            <p class="desc">Makijaż permanentny, brwi i rzęsy we Wrocławiu. Pełny cennik zabiegów i portfolio w jednym miejscu.</p>
+            <div class="brand"><div class="num">06<span>&nbsp;/ 06</span></div><h3>Wolska Beauty Atelier</h3></div>
+          </div>
+          <div class="right">
+            <a class="shot" href="https://wolska.netlify.app/" target="_blank" rel="noopener">
+              <span class="bar" aria-hidden="true"><i></i><i></i><i></i><em>wolska.netlify.app</em></span>
+              <figure><img src="images/wolska.jpg" alt="Strona Aleksandra Wolska Beauty Atelier" loading="lazy" /></figure>
+            </a>
+            <div class="meta">
+              <div class="top"><div class="grp"><span class="k">Miasto</span><span class="v big">Wrocław</span></div><div class="grp"><span class="k">Zakres</span><span class="v">Strona + Google Business</span></div></div>
+              <div class="grp"><span class="k">Elementy</span><span class="v">Cennik zabiegów</span><span class="v">Portfolio</span><span class="v">Opinie</span><span class="v">Kontakt</span></div>
+            </div>
+          </div>
+        </div>
+      </article></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= USŁUGI — taby ================= -->
+<section class="section services" id="uslugi">
+  <div class="container">
+    <div class="head">
+      <p class="eyebrow" data-appear="up40">(Usługi)</p>
+      <h2 class="t-h2" data-text-fx>Co robimy</h2>
+    </div>
+    <div>
+      <div class="tabs" role="tablist" aria-label="Wybierz usługę">
+        <button type="button" class="tab active" role="tab" aria-selected="true"><i class="dot"></i>Strona internetowa</button>
+        <button type="button" class="tab" role="tab" aria-selected="false"><i class="dot"></i>Social media</button>
+        <button type="button" class="tab" role="tab" aria-selected="false"><i class="dot"></i>Google Business</button>
+      </div>
+      <div class="panels" style="margin-top:64px">
+        <div class="panel active">
+          <div class="img-box" data-appear="right118" data-loop-float="-8"><img src="images/karta-1.jpg" alt="Projekt strony internetowej" /></div>
+          <p data-appear="up40">Wizytówka dopasowana pod branżę: cennik, formularz, mapa, godziny otwarcia. Szybka i czytelna na telefonie, bo stamtąd przychodzi większość ruchu.</p>
+          <div class="tags" data-appear="left60 delay:.6"><span>Mobile-first</span><span>Do 5 podstron</span><span>7 dni roboczych</span></div>
+        </div>
+        <div class="panel">
+          <div class="img-box" data-loop-float="-8"><img src="images/karta-2.jpg" alt="Prowadzenie social media" /></div>
+          <p>Facebook i Instagram: grafik publikacji, spójne grafiki, podstawowe kampanie reklamowe lokalne i miesięczne podsumowanie tego, co zadziałało.</p>
+          <div class="tags"><span>Grafik publikacji</span><span>Reklamy lokalne</span><span>Raport co miesiąc</span></div>
+        </div>
+        <div class="panel">
+          <div class="img-box" data-loop-float="-8"><img src="images/karta-3.jpg" alt="Wizytówka Google" /></div>
+          <p>Godziny, zdjęcia, kategorie, odpowiedzi na opinie. Żeby to Was klient znalazł jako pierwszych, kiedy szuka „w pobliżu”.</p>
+          <div class="tags"><span>Wizytówka Google</span><span>Opinie</span><span>Wyniki „w pobliżu”</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="services-band" aria-hidden="true">
+    <div class="ticker fade" data-speed="50"><ul>
+      <li><span class="word"><svg width="52" height="52" viewBox="0 0 24 24"><use href="#i-flower"/></svg>Strona</span></li>
+      <li><span class="word"><svg width="52" height="52" viewBox="0 0 24 24"><use href="#i-flower"/></svg>Social media</span></li>
+      <li><span class="word"><svg width="52" height="52" viewBox="0 0 24 24"><use href="#i-flower"/></svg>Google</span></li>
+      <li><span class="word"><svg width="52" height="52" viewBox="0 0 24 24"><use href="#i-flower"/></svg>Wsparcie</span></li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- ================= ZESPÓŁ ================= -->
+<section class="section founder" id="zespol">
+  <div class="container">
+    <div class="sec-top">
+      <p class="eyebrow" data-appear="up40">(Zespół)</p>
+      <div class="giant-wrap" data-appear="up60"><div class="giant-mask up"><h2 class="t-giant">Poznaj zespół</h2></div></div>
+    </div>
+    <div class="grid">
+      <!-- duże zdjęcie: x -90 → 0 spring 110/25; koło obraca się 360° / 5 s (linear, loop) -->
+      <div class="big" data-appear="x:-90 spring:110/25/1 thr:.5">
+        <img class="photo" src="images/blok-2.jpg" alt="Rozmowa z właścicielką lokalu przy stoliku w kawiarni" />
+        <div class="glass"></div>
+        <div class="icons">
+          <a href="https://facebook.com/widacwas" target="_blank" rel="noopener" aria-label="Facebook"><svg><use href="#i-fb"/></svg></a>
+          <a href="https://instagram.com/widacwas" target="_blank" rel="noopener" aria-label="Instagram"><svg><use href="#i-ig"/></svg></a>
+          <a href="mailto:kontakt@widacwas.pl" aria-label="E-mail"><svg><use href="#i-mail"/></svg></a>
+        </div>
+      </div>
+      <div class="circle" data-loop-rotate="5" aria-hidden="true">
+        <svg viewBox="0 0 156 156">
+          <defs><path id="circ" d="M78 78 m-58 0 a58 58 0 1 1 116 0 a58 58 0 1 1 -116 0"/></defs>
+          <circle cx="78" cy="78" r="78" fill="rgba(12,12,12,.82)"/>
+          <text font-family="Inter, sans-serif" font-size="13" letter-spacing="2.2" fill="#fff"><textPath href="#circ">WIDAĆWAS • STRONY • SOCIAL MEDIA • GOOGLE •</textPath></text>
+          <circle cx="78" cy="78" r="20" fill="#ff4d00"/>
+        </svg>
+      </div>
+      <!-- Right: y 50 → 0, tween 1 s, delay .2 -->
+      <div class="text" data-appear="up50">
+        <div class="content">
+          <h3 class="t-h3">Kto stoi za WidaćWas</h3>
+          <p class="t-lead muted">Mateusz i Miłosz. Budujemy strony i prowadzimy social media dla lokalnych firm: gabinetów, bistro, kawiarni, biur nieruchomości, salonów beauty. Doświadczenie przynieśliśmy ze Stage Dive Media, gdzie od ponad 5 lat zajmujemy się promocją i marketingiem muzycznym. To samo podejście stosujemy teraz dla firm z Waszej ulicy.</p>
+        </div>
+        <div class="line"></div>
+        <div class="years">
+          <div class="yr"><span class="muted">Stage Dive Media</span><b>Promocja i marketing muzyczny, 5+ lat</b><span class="muted">marka siostrzana</span></div>
+          <div class="yr"><span class="muted">WidaćWas</span><b>Strony i social media dla lokalnych firm</b><span class="muted">6 wdrożeń online</span></div>
+          <div class="yr"><span class="muted">Zespół</span><b>Mateusz (strony, kontakt) i Miłosz (social media, reklamy)</b><span class="muted">2 osoby</span></div>
+          <div class="yr"><span class="muted">Zasada</span><b>Jawny cennik, brak długoterminowych umów</b><span class="muted">od pierwszej rozmowy</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DLACZEGO WIDAĆWAS (mechanika listy "Awards") ================= -->
+<section class="section awards">
+  <div class="container">
+    <div class="title">
+      <p class="eyebrow" data-appear="up40">(Dlaczego WidaćWas)</p>
+      <h2 class="t-h2" data-text-fx>Szybko, uczciwie, kompleksowo</h2>
+    </div>
+    <div class="list">
+      <!-- każdy wiersz: y 40 → 0 spring 66/20, kolejne z opóźnieniem; hover → kolor akcentu -->
+      <a class="rowl" href="#cennik" data-appear="up40"><span>Szybko</span><span class="c">7 dni roboczych od rozmowy do działającej strony</span><span>Termin</span></a>
+      <a class="rowl" href="#cennik" data-appear="up40 delay:.08"><span>Uczciwie</span><span class="c">Jawny cennik od razu, umowa czytelna w kilka minut</span><span>Cennik</span></a>
+      <a class="rowl" href="#uslugi" data-appear="up40 delay:.16"><span>Kompleksowo</span><span class="c">Strona + social media + Google Business w jednym pakiecie</span><span>Usługi</span></a>
+      <a class="rowl" href="#faq" data-appear="up40 delay:.24"><span>Bez haczyków</span><span class="c">Brak automatycznych odnowień i ukrytych opłat</span><span>Umowa</span></a>
+      <a class="rowl" href="#kontakt" data-appear="up40 delay:.32"><span>Po starcie</span><span class="c">Poprawki, aktualizacje, pomoc przy pierwszym poście</span><span>Wsparcie</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CENNIK — karty sticky ================= -->
+<section class="section pricing" id="cennik">
+  <div class="container">
+    <div class="head">
+      <p class="eyebrow" data-appear="up40">(Cennik)</p>
+      <h2 class="t-h2" data-text-fx>Widełki, nie „wycena indywidualna”</h2>
+    </div>
+    <div class="body">
+      <article class="price-card" data-appear="up40">
+        <div class="left">
+          <div class="top">
+            <div class="icon"><svg><use href="#i-globe"/></svg></div>
+            <div class="ttl"><h3 class="t-h4">Start</h3><p class="muted">Sama strona wizytówka: sprawdzony szablon + Wasze dane, do 5 podstron.</p></div>
+          </div>
+          <div><div class="kv"><span>Termin</span><span>7 dni roboczych</span></div><div class="line" style="margin-top:16px"></div></div>
+        </div>
+        <div class="right">
+          <div class="price"><b>1200–1500 zł</b><span>jednorazowo</span></div>
+          <div class="line"></div>
+          <div class="pts">
+            <div class="pt"><i><svg><use href="#i-check"/></svg></i>Cennik, formularz, mapa, godziny</div>
+            <div class="pt"><i><svg><use href="#i-check"/></svg></i>Szybka, mobile-first</div>
+            <div class="pt"><i><svg><use href="#i-check"/></svg></i>Do 5 podstron</div>
+            <div class="pt"><i><svg><use href="#i-check"/></svg></i>Bez abonamentu</div>
+          </div>
+          <a class="btn full" href="#kontakt"><span>Zamów Start</span><svg class="arrow"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+      <article class="price-card featured" data-appear="up40">
+        <div class="left">
+          <div class="top">
+            <div class="icon"><svg><use href="#i-chat"/></svg></div>
+            <div class="ttl"><h3 class="t-h4">Widoczność</h3><p class="muted">Strona + prowadzenie social media (Facebook, podstawowy zakres).</p></div>
+          </div>
+          <div><div class="kv line-k"><span>Termin</span><span>7 dni roboczych</span></div><div class="line" style="margin-top:16px"></div></div>
+        </div>
+        <div class="right">
+          <div class="price"><b>900–1200 zł</b><span class="muted">+ 500–700 zł / mies.</span></div>
+          <div class="line"></div>
+          <div class="pts">
+            <div class="pt"><i><svg><use href="#i-check"/></svg></i>Wszystko z pakietu Start</div>
+            <div class="pt"><i><svg><use href="#i-check"/></svg></i>Grafik publikacji i spójne grafiki</div>
+            <div class="pt"><i><svg><use href="#i-check"/></svg></i>Podstawowe kampanie lokalne</div>
+            <div class="pt"><i><svg><use href="#i-check"/></svg></i>Miesięczne podsumowanie</div>
+          </div>
+          <a class="btn light full" href="#kontakt"><span>Zamów Widoczność</span><svg class="arrow"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+      <article class="price-card" data-appear="up40">
+        <div class="left">
+          <div class="top">
+            <div class="icon"><svg><use href="#i-pin"/></svg></div>
+            <div class="ttl"><h3 class="t-h4">Pro</h3><p class="muted">Strona + social media + optymalizacja wizytówki Google Business.</p></div>
+          </div>
+          <div><div class="kv"><span>Termin</span><span>7 dni roboczych</span></div><div class="line" style="margin-top:16px"></div></div>
+        </div>
+        <div class="right">
+          <div class="price"><b>900–1200 zł</b><span>+ 700–900 zł / mies.</span></div>
+          <div class="line"></div>
+          <div class="pts">
+            <div class="pt"><i><svg><use href="#i-check"/></svg></i>Wszystko z pakietu Widoczność</div>
+            <div class="pt"><i><svg><use href="#i-check"/></svg></i>Wizytówka Google: godziny, zdjęcia, kategorie</div>
+            <div class="pt"><i><svg><use href="#i-check"/></svg></i>Odpowiedzi na opinie</div>
+            <div class="pt"><i><svg><use href="#i-check"/></svg></i>Wyniki „w pobliżu”</div>
+          </div>
+          <a class="btn full" href="#kontakt"><span>Zamów Pro</span><svg class="arrow"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="section faq" id="faq">
+  <div class="container">
+    <div class="head">
+      <p class="eyebrow" data-appear="up40">(FAQ)</p>
+      <h2 class="t-h2" data-text-fx>Pytania, które słyszymy najczęściej</h2>
+      <p class="muted" data-appear="up40 delay:.1">Krótko i konkretnie, tak jak rozmawiamy z klientami.</p>
+    </div>
+    <div class="cols">
+      <div class="col">
+        <details class="faq-item" data-appear="up50"><summary>Ile to kosztuje i czy są ukryte opłaty?<svg><use href="#i-plus"/></svg></summary><div class="a"><div><p>Ceny są w cenniku wyżej: strona od 1200 zł jednorazowo, pakiety z social media od 500 zł miesięcznie. Nie ma ukrytych opłat ani automatycznych odnowień. Cena z wyceny na piśmie jest ceną końcową.</p></div></div></details>
+        <details class="faq-item" data-appear="up50 delay:.1"><summary>Nie znam się na komputerach. Dam radę tym zarządzać?<svg><use href="#i-plus"/></svg></summary><div class="a"><div><p>Tak. Stronę utrzymujemy my, a drobne zmiany (godziny, cennik, nowe zdjęcie) robimy na jedno zgłoszenie. Przy social media pomagamy przy pierwszym poście i tłumaczymy wszystko po ludzku.</p></div></div></details>
+        <details class="faq-item" data-appear="up50 delay:.2"><summary>Co jeśli po starcie strony zechcę coś zmienić?<svg><use href="#i-plus"/></svg></summary><div class="a"><div><p>Piszecie lub dzwonicie. Drobne poprawki i aktualizacje są częścią wsparcia po wdrożeniu. Większe zmiany wyceniamy z góry, zanim zaczniemy.</p></div></div></details>
+      </div>
+      <div class="col">
+        <details class="faq-item" data-appear="up50 delay:.05"><summary>Jak długo to trwa od podpisania do startu?<svg><use href="#i-plus"/></svg></summary><div class="a"><div><p>7 dni roboczych od rozmowy do działającej strony. Budujemy na sprawdzonym fundamencie, nie od zera, dlatego termin jest realny, a nie „orientacyjny”.</p></div></div></details>
+        <details class="faq-item" data-appear="up50 delay:.15"><summary>Czy muszę podpisywać długoterminową umowę?<svg><use href="#i-plus"/></svg></summary><div class="a"><div><p>Nie. Umowa jest czytelna w kilka minut, bez długoterminowych zobowiązań i bez automatycznych odnowień. Abonament social media można zakończyć z miesiąca na miesiąc.</p></div></div></details>
+        <details class="faq-item" data-appear="up50 delay:.25"><summary>Dlaczego strona i social media razem?<svg><use href="#i-plus"/></svg></summary><div class="a"><div><p>Strona bez ruchu to wystawa sklepu przy pustej uliczce. Social media i reklamy lokalne sprowadzają ludzi pod tę wystawę, a Google Business pokazuje Was tym, którzy szukają „w pobliżu”.</p></div></div></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= KONTAKT ================= -->
+<section class="contact" id="kontakt">
+  <div class="lights" aria-hidden="true" style="background:radial-gradient(closest-side, rgba(255,77,0,.18), transparent 70%)"></div>
+  <div class="sec-top">
+    <div class="giant-wrap" data-appear="up60"><div class="giant-mask up"><h2 class="t-giant">Porozmawiajmy</h2></div></div>
+  </div>
+  <div class="contact-card" data-appear="up50" style="margin-top:-10px">
+    <img src="images/bg.jpg" alt="" /><div class="shade"></div><div class="noise"></div>
+    <div class="content">
+      <div class="top">
+        <div class="l">
+          <h3 class="t-h2">Macie firmę, której nie widać?</h3>
+          <p>15–20 minut rozmowy o tym, co realnie wpływa na decyzję klienta w Waszej branży. Potem projekt i wycena na piśmie, zanim zapłacicie złotówkę.</p>
+        </div>
+        <form action="mailto:kontakt@widacwas.pl" method="post" enctype="text/plain">
+          <label>Imię i nazwa firmy<input type="text" name="nazwa" required autocomplete="organization" /></label>
+          <label>E-mail lub telefon<input type="text" name="kontakt" required autocomplete="email" /></label>
+          <label>Czego potrzebujecie?<textarea name="opis" placeholder="Strona? Social media? Wizytówka Google?"></textarea></label>
+          <button class="btn light full" type="submit"><span>Wyślij i umów rozmowę</span></button>
+        </form>
+      </div>
+      <div class="contact-band">
+        <div class="ticker fade" data-speed="50"><ul>
+          <li><span class="txt">kontakt@widacwas.pl</span></li>
+          <li><span class="txt">Mateusz <span data-tel="515 803 335">…</span></span></li>
+          <li><span class="txt">Miłosz <span data-tel="413 666 487">…</span></span></li>
+          <li><span class="txt">facebook.com/widacwas</span></li>
+          <li><span class="txt">instagram.com/widacwas</span></li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ================= STOPKA ================= -->
+<footer class="footer" data-appear="up50 thr:0">
+  <div class="inner">
+    <img src="images/bg.jpg" alt="" />
+    <div class="menu">
+      <div class="col"><h4>Nawigacja</h4><ul>
+        <li><a href="#o-nas">O nas<i class="u"></i></a></li><li><a href="#realizacje">Realizacje<i class="u"></i></a></li><li><a href="#uslugi">Usługi<i class="u"></i></a></li><li><a href="#cennik">Cennik<i class="u"></i></a></li>
+      </ul></div>
+      <div class="col"><h4>Social</h4><ul>
+        <li><a href="https://facebook.com/widacwas" target="_blank" rel="noopener">Facebook<i class="u"></i></a></li><li><a href="https://instagram.com/widacwas" target="_blank" rel="noopener">Instagram<i class="u"></i></a></li><li><a href="mailto:kontakt@widacwas.pl">E-mail<i class="u"></i></a></li>
+      </ul></div>
+      <div class="col"><h4>Informacje</h4><ul>
+        <li><a href="https://widacwas.pl/privacy.html" target="_blank" rel="noopener">Polityka prywatności<i class="u"></i></a></li><li><a href="#faq">FAQ<i class="u"></i></a></li>
+      </ul></div>
+    </div>
+    <div class="bottom">
+      <div class="meta">
+        <span>© 2025 WidaćWas · Stage Dive Media</span>
+        <span class="clock">Polska → <span data-clock>00:00:00</span></span>
+        <a class="top" href="#top" data-top>Do góry</a>
+      </div>
+      <div class="wordmark"><span>widacwas<i>.pl</i></span></div>
+    </div>
+    <div class="prog-blur"></div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+  // telefony odwrócone w HTML (ochrona przed prostymi scraperami) — jak obfuscate-tel.js w obecnej stronie
+  document.querySelectorAll("[data-tel]").forEach((el) => { const n = [...el.dataset.tel].reverse().join(""); el.textContent = n; });
+</script>
+</body>
+</html>
