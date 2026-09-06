@@ -318,18 +318,55 @@
     go(0); restart();
   }
 
-  /* ---------- 11. Taby usług (wariant "Active" + ponowne appear treści) ---------- */
+  /* ---------- 11. Taby usług: przełączają się same, klik i klawiatura nadal działają ---------- */
   function initTabs() {
+    const wrap = document.querySelector(".services .tabs");
     const tabs = [...document.querySelectorAll(".services .tab")];
     const panels = [...document.querySelectorAll(".services .panel")];
-    tabs.forEach((t, k) => t.addEventListener("click", () => {
-      tabs.forEach((x) => { x.classList.toggle("active", x === t); x.setAttribute("aria-selected", x === t); });
-      panels.forEach((p, j) => p.classList.toggle("active", j === k));
-      const p = panels[k];
+    if (!wrap || tabs.length < 2) return;
+    const HOLD = 5200;                          // ile widać jedną usługę
+    let i = 0, anim = null, paused = false;
+    // sprawdzamy widoczność wprost z geometrii — nie czekamy na pierwszy callback obserwatora
+    const visible = () => { const r = wrap.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
+
+    // pasek postępu w aktywnej pigułce odmierza czas i zarazem napędza zmianę,
+    // więc pauza jest dokładna: zatrzymanie animacji zatrzymuje też odliczanie
+    function cycle() {
+      if (anim) { anim.cancel(); anim = null; }
+      if (REDUCED || paused || !visible()) return;
+      const bar = tabs[i].querySelector(".progress");
+      if (!bar) return;
+      anim = bar.animate([{ transform: "scaleX(0)" }, { transform: "scaleX(1)" }],
+                         { duration: HOLD, easing: "linear", fill: "both" });
+      anim.onfinish = () => show(i + 1);
+    }
+
+    function show(k) {
+      i = (k + tabs.length) % tabs.length;
+      tabs.forEach((x, j) => { x.classList.toggle("active", j === i); x.setAttribute("aria-selected", j === i); });
+      panels.forEach((p, j) => p.classList.toggle("active", j === i));
+      const p = panels[i];
       animate(p.querySelector(".img-box"), { opacity: 0, x: 118 }, { opacity: 1, x: 0 }, { type: "tween", duration: 0.6, ease: [0.44, 0, 0.56, 1] });
       animate(p.querySelector("p"), { opacity: 0, y: 40 }, { opacity: 1, y: 0 }, { type: "spring", stiffness: 66, damping: 20, mass: 1 });
       animate(p.querySelector(".tags"), { opacity: 0, x: -60 }, { opacity: 1, x: 0 }, { type: "spring", stiffness: 300, damping: 60, mass: 1, delay: 0.3 });
-    }));
+      cycle();
+    }
+
+    tabs.forEach((t, k) => t.addEventListener("click", () => show(k)));
+
+    // pauza, kiedy ktoś czyta albo celuje myszą w zakładkę
+    const pause = () => { paused = true; if (anim) anim.pause(); };
+    const resume = () => { paused = false; if (anim) anim.play(); else cycle(); };
+    wrap.addEventListener("pointerenter", pause);
+    wrap.addEventListener("pointerleave", resume);
+    wrap.addEventListener("focusin", pause);
+    wrap.addEventListener("focusout", resume);
+
+    // poza widokiem nic się nie kręci
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) cycle();
+      else if (anim) { anim.cancel(); anim = null; }
+    }, { threshold: 0 }).observe(wrap);
   }
 
   /* ---------- 12. FAQ (grid-template-rows 0fr → 1fr) ---------- */
