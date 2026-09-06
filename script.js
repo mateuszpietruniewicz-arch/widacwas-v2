@@ -217,6 +217,11 @@
         anim = ul.animate(frames, { duration: (w / speed) * 1000, iterations: Infinity, easing: "linear" });
       };
       start();
+      // pasek z odnośnikami zatrzymuje się pod kursorem, inaczej nie da się w nie kliknąć
+      if (t.querySelector("a")) {
+        t.addEventListener("pointerenter", () => anim && anim.pause());
+        t.addEventListener("pointerleave", () => anim && anim.play());
+      }
       // pauza poza viewportem (jak Framer)
       new IntersectionObserver(([e]) => { if (!anim) return; e.isIntersecting ? anim.play() : anim.pause(); }).observe(t);
       let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { fill(); start(); }, 200); });

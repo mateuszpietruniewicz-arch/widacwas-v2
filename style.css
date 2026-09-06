@@ -419,8 +419,15 @@ button { font: inherit; }
 .contact-card input:focus, .contact-card textarea:focus { border-color: rgba(255,255,255,.4); background: rgba(255,255,255,.14); }
 .contact-card .btn.light { height: 40px; }
 .contact-band .ticker { --gap: 32px; height: 40px; }
-.contact-band .txt { display: flex; align-items: center; gap: 12px; color: var(--w-64); white-space: nowrap; font-family: var(--f-display); font-size: 20px; }
-.contact-band .txt svg { width: 14px; height: 14px; }
+.contact-band .txt {
+  display: flex; align-items: center; gap: 12px; color: var(--w-64); white-space: nowrap;
+  font-family: var(--f-display); font-size: 20px; text-decoration: none;
+  transition: color .3s var(--ease-io);
+}
+/* pasek zatrzymuje się pod kursorem, więc w te odnośniki da się trafić */
+.contact-band a.txt:hover, .contact-band a.txt:focus-visible {
+  color: var(--white); text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 1px;
+}
 
 /* ==== FOOTER ==== */
 .footer { position: relative; padding: 8px; }
