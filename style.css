@@ -504,3 +504,22 @@ button { font: inherit; }
   .work-pin, .work-card-in, .hero-bg, .hero-bg img, .stats-card .media, .circle { transform: none !important; opacity: 1 !important; }
   *, *::before, *::after { transition-duration: .01ms !important; animation: none !important; }
 }
+
+/* ==========================================================================
+   STRONA PRAWNA (privacy.html) — ten sam język wizualny, prosty układ tekstu
+   ========================================================================== */
+.legal { max-width: 760px; margin: 0 auto; padding: 64px 24px 96px; }
+.legal .back { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 40px; color: var(--ink-2); font-size: 14px; transition: color .3s var(--ease-io); }
+.legal .back:hover { color: var(--ink); }
+.legal h1 { font-family: var(--f-display); font-weight: 400; font-size: 56px; line-height: 60px; color: var(--ink); margin-bottom: 12px; }
+.legal .date { color: var(--ink-2); font-size: 14px; margin-bottom: 48px; }
+.legal h2 { font-family: var(--f-display); font-weight: 400; font-size: 26px; line-height: 34px; color: var(--ink); margin: 40px 0 12px; }
+.legal p { color: var(--ink-2); font-size: 16px; line-height: 28px; margin-bottom: 16px; }
+.legal a { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
+.legal code { background: var(--ink-08); padding: 2px 6px; border-radius: 6px; font-size: 14px; }
+.legal .cta { margin-top: 48px; }
+@media (max-width: 809.98px) {
+  .legal { padding: 40px 20px 64px; }
+  .legal h1 { font-size: 36px; line-height: 42px; }
+  .legal h2 { font-size: 22px; line-height: 30px; }
+}
